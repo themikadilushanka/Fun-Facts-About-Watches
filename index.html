@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing Watch Facts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .fact-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .fact-card:hover {
+            transform: scale(1.02);
+        }
+        .share-btn {
+            background: #4267B2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>🕒 Fascinating Watch Facts 🕒</h1>
+    
+    <div id="fact-container">
+        <!-- Facts will be dynamically inserted here -->
+    </div>
+
+    <script>
+        const watchFacts = {
+            "Did you know?": [
+                "The first mechanical watch was created in the 16th century!",
+                "Wristwatches became popular during World War I",
+                "The first digital watch was made by Hamilton in 1972",
+                "A traditional mechanical watch can have 100-200 parts",
+                "Atomic watches are accurate to ±1 second in 100,000 years!",
+                "A 200m water-resistant watch can be used for scuba diving",
+                "Quartz watches are accurate to within ±0.5 seconds per day"
+            ]
+        };
+
+        const container = document.getElementById('fact-container');
+        
+        watchFacts["Did you know?"].forEach(fact => {
+            const card = document.createElement('div');
+            card.className = 'fact-card';
+            card.innerHTML = `
+                <p>${fact}</p>
+                <button class="share-btn" onclick="shareFact('${fact}')">Share This Fact</button>
+            `;
+            container.appendChild(card);
+        });
+
+        function shareFact(fact) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Amazing Watch Fact',
+                    text: fact,
+                    url: window.location.href
+                })
+                .catch(console.error);
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                alert('Copy this fact: ' + fact);
+            }
+        }
+    </script>
+</body>
+</html>
